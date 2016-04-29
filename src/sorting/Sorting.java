@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Singletonized class. Keeps basic sorting algorithms in one place
+ * Singleton class. Keeps basic sorting algorithms in one place
  * @author krystian
  */
 public class Sorting {
@@ -13,14 +13,36 @@ public class Sorting {
     
     protected Sorting() {}
     
+    /**
+     * Allows to use Singleton design (anti?) pattern
+     * @return the singleton instance of this class
+     */
     public static Sorting getInstance() {
         if (instance == null) {
             instance = new Sorting();
         }
         return instance;
     }
+ 
+    /**
+     * Checks if array is sorted properly
+     * @param arr - array to be tested
+     * @throws NotSortedException 
+     */
+    private void CheckSorting(List<Integer> arr) throws NotSortedException {
+        for (int i = 1; i < arr.size(); i++) {
+            if (arr.get(i) < (arr.get(i - 1))) {
+                throw new NotSortedException();
+            }
+        }
+    }
     
-    public List<Integer> BubbleSort(List<Integer> arr) {
+    /**
+     * Bubble sort without improvements
+     * @param arr - ArrayList<> to sort
+     * @return sorted ArrayList<>
+     */
+    public List<Integer> BubbleSort(List<Integer> arr) throws NotSortedException {
         List<Integer> newArr = arr; 
         
         for (int i = 0; i < newArr.size(); i++) {
@@ -35,6 +57,7 @@ public class Sorting {
             }
         }
         
-        return newArr; // @TODO
+        CheckSorting(newArr);
+        return newArr;
     }
 }

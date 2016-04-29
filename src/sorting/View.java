@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sorting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
+ * Class responsible for interacting with the program
  * @author krystian
  */
 public class View {
@@ -17,7 +15,16 @@ public class View {
     public static void main(String[] args) {
         
         Utils utils = new Utils();
+        Sorting sorting = Sorting.getInstance();
         
-        System.out.print(utils.GenerateArrayOfRandoms(10, 99, 199));
+        List<Integer> smallArrayOfNumbers = utils.GenerateArrayOfRandoms(100, 1, 1000000);
+//        List<Integer> normalArrayOfNumbers = utils.GenerateArrayOfRandoms(10000, 1, 1000000);
+//        List<Integer> bigArrayOfNumbers = utils.GenerateArrayOfRandoms(10000000, 1, 1000000);
+
+        // Sorting of numbers
+        System.out.println(smallArrayOfNumbers);
+        System.out.println(sorting.BubbleSort(smallArrayOfNumbers));
+        
+        
     }
 }

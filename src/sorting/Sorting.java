@@ -241,4 +241,39 @@ public class Sorting {
         CheckSorting(newArr);
         return newArr;
     }
+    
+    /**
+     * Quick sort recurrent algorithm V1
+     * @param arr ArrayList<> to be sorted
+     * @param l left side of an array
+     * @param r right side of an array
+     * @return sorted ArrayList<>
+     * @throws NotSortedException 
+     */
+    public List<Integer> QuickSort(List<Integer> arr, int l, int r) throws NotSortedException {
+        List<Integer> newArr = arr; 
+        
+        if (l < r) {
+            int t = newArr.get(l);  // pivot element
+            int s = l;  // dividing element
+            
+            for (int i = l + 1; i < r; i++) {
+                if (newArr.get(i).compareTo(t) > 0) {       
+                    s++; 
+                    
+                    int tmp = newArr.get(i); 
+                    newArr.set(i, newArr.get(s));
+                    newArr.set(s, tmp);
+                }
+            }            
+            QuickSort(newArr, l, s);
+            QuickSort(newArr, s+1, r);
+        }
+        
+        CheckSorting(newArr);
+        return newArr;
+    }
+    
+    
+    
 }

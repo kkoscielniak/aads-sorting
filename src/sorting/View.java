@@ -104,6 +104,13 @@ public class View {
             System.out.println("Shell sort with h=1 of medium array took " + watch.getTime() + "ms");
             watch.reset();
             
+            watch.start();
+            sorting.QuickSort(mediumArrayOfNumbers, 0, mediumArrayOfNumbers.size());
+            watch.stop();
+            System.out.println("Quick sort of medium array took " + watch.getTime() + "ms");
+            watch.reset();
+            
+            
             
 
             

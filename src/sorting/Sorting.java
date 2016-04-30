@@ -150,4 +150,95 @@ public class Sorting {
         CheckSorting(newArr);
         return newArr;
     }
+    
+    /**
+     * Insertion Sort
+     * @param arr ArrayList<> to be sorted
+     * @return sorted ArrayList<>
+     * @throws NotSortedException 
+     */
+    public List<Integer> InsertionSort(List<Integer> arr) throws NotSortedException {
+        List<Integer> newArr = arr; 
+        int x, j;
+        
+        for (int i = 1; i < newArr.size(); i++) {
+            x = newArr.get(i);
+            j = i - 1;
+            
+            while((j >= 0) && (x < newArr.get(j))) {
+                newArr.set(j+1, newArr.get(j));
+                j = j - 1;
+            }
+            newArr.set(j + 1, x);
+        }
+        
+        CheckSorting(newArr);
+        return newArr;
+    }
+    
+    /**
+     * Shell Sort with h = array length / 2
+     * @param arr ArrayList<> to be sorted
+     * @return sorted ArrayList<>
+     * @throws NotSortedException 
+     */
+    public List<Integer> ShellSort(List<Integer> arr) throws NotSortedException {
+        List<Integer> newArr = arr; 
+        int h = newArr.size() / 2;
+        
+        while (h > 0) {
+            for (int i = h; i < newArr.size(); i++) {
+                int x = newArr.get(i);
+                int j = i;
+                
+                while ((j >= h) && (x < newArr.get(j-h))) {
+                    newArr.set(i, newArr.get(j-h));
+                    j -= h;
+                }
+                
+                newArr.set(i, x);
+            }
+            
+            h /= 2;
+        }
+        
+        CheckSorting(newArr);
+        return newArr;
+    }
+    
+    /**
+     * Shell Sort with h = 1
+     * @param arr ArrayList<> to be sorted
+     * @return sorted ArrayList<>
+     * @throws NotSortedException 
+     */
+    public List<Integer> ShellSortV2(List<Integer> arr) throws NotSortedException {
+        List<Integer> newArr = arr; 
+        
+        int h = 1;
+        double tmp = newArr.size() / 9.0;
+        
+        while (h < tmp) {
+            h = 3 * h + 1;
+        }
+        
+        while (h > 0) {
+            for (int i = h; i < newArr.size(); i++) {
+                int x = newArr.get(i);
+                int j = i;
+                
+                while ((j >= h) && (x < newArr.get(j-h))) {
+                    newArr.set(i, newArr.get(j-h));
+                    j -= h;
+                }
+                
+                newArr.set(i, x);
+            }
+            
+            h /= 3;
+        }
+        
+        CheckSorting(newArr);
+        return newArr;
+    }
 }

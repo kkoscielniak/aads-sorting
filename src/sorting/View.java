@@ -18,7 +18,7 @@ public class View {
         Sorting sorting = Sorting.getInstance();
         StopWatch watch = new StopWatch();
         
-        List<Integer> smallArrayOfNumbers = utils.GenerateArrayOfRandoms(100, 1, 1000000);
+//        List<Integer> smallArrayOfNumbers = utils.GenerateArrayOfRandoms(100, 1, 1000000);
         List<Integer> mediumArrayOfNumbers = utils.GenerateArrayOfRandoms(10000, 1, 1000000);
 //        List<Integer> bigArrayOfNumbers = utils.GenerateArrayOfRandoms(1000000, 1, 1000000);
 
@@ -26,11 +26,11 @@ public class View {
         try {
             
             /* Bubble Sorting */
-            watch.start();
-            sorting.BubbleSort(smallArrayOfNumbers);
-            watch.stop();
-            System.out.println("Bubble sort of small array took " + watch.getTime() + "ms");
-            watch.reset();
+//            watch.start();
+//            sorting.BubbleSort(smallArrayOfNumbers);
+//            watch.stop();
+//            System.out.println("Bubble sort of small array took " + watch.getTime() + "ms");
+//            watch.reset();
             
             watch.start();
             sorting.BubbleSort(mediumArrayOfNumbers);
@@ -38,11 +38,11 @@ public class View {
             System.out.println("Bubble sort of medium array took " + watch.getTime() + "ms");
             watch.reset();
             
-            watch.start();
-            sorting.BubbleSortV2(smallArrayOfNumbers);
-            watch.stop();
-            System.out.println("Improved bubble sort of small array took " + watch.getTime() + "ms");
-            watch.reset();
+//            watch.start();
+//            sorting.BubbleSortV2(smallArrayOfNumbers);
+//            watch.stop();
+//            System.out.println("Improved bubble sort of small array took " + watch.getTime() + "ms");
+//            watch.reset();
             
             watch.start();
             sorting.BubbleSortV2(mediumArrayOfNumbers);
@@ -61,12 +61,12 @@ public class View {
 //            watch.stop();
 //            System.out.println("Improved by reduction bubble sort of medium array took " + watch.getTime() + "ms");
 //            watch.reset();
-            
-            watch.start();
-            sorting.SelectionSort(smallArrayOfNumbers);
-            watch.stop();
-            System.out.println("Selection sort of small array took " + watch.getTime() + "ms");
-            watch.reset();
+//            
+//            watch.start();
+//            sorting.SelectionSort(smallArrayOfNumbers);
+//            watch.stop();
+//            System.out.println("Selection sort of small array took " + watch.getTime() + "ms");
+//            watch.reset();
             
             watch.start();
             sorting.SelectionSort(mediumArrayOfNumbers);
@@ -74,6 +74,35 @@ public class View {
             System.out.println("Selection sort of medium array took " + watch.getTime() + "ms");
             watch.reset();
             
+//            watch.start();
+//            sorting.InsertionSort(smallArrayOfNumbers);
+//            watch.stop();
+//            System.out.println("Insertion sort of small array took " + watch.getTime() + "ms");
+//            watch.reset();
+            
+            watch.start();
+            sorting.InsertionSort(mediumArrayOfNumbers);
+            watch.stop();
+            System.out.println("Insertion sort of medium array took " + watch.getTime() + "ms");
+            watch.reset();
+            
+//            watch.start();
+//            sorting.ShellSort(smallArrayOfNumbers);
+//            watch.stop();
+//            System.out.println("Shell sort of small array took " + watch.getTime() + "ms");
+//            watch.reset();
+            
+            watch.start();
+            sorting.ShellSort(mediumArrayOfNumbers);
+            watch.stop();
+            System.out.println("Shell sort with h=arr.size()/2 of medium array took " + watch.getTime() + "ms");
+            watch.reset();
+            
+            watch.start();
+            sorting.ShellSortV2(mediumArrayOfNumbers);
+            watch.stop();
+            System.out.println("Shell sort with h=1 of medium array took " + watch.getTime() + "ms");
+            watch.reset();
             
             
 

@@ -29,10 +29,11 @@ public class Sorting {
      * @throws NotSortedException 
      */
     private void CheckSorting(List<Integer> arr) throws NotSortedException {
+        System.out.println(arr);
         for (int i = 1; i < arr.size(); i++) {
-            if (arr.get(i) < (arr.get(i - 1))) {
+            if (arr.get(i) < (arr.get(i-1))) {
                 System.out.println(i);
-                System.out.println(arr.get(i) + " < " + arr.get(i-1));
+                System.out.println(arr.get(i) + " > " + arr.get(i-1));
                 throw new NotSortedException();
             }
         }
@@ -67,7 +68,7 @@ public class Sorting {
      * @return sorted ArrayList<>
      * @throws NotSortedException 
      */
-    public List<Integer> BubbleSortV2(List<Integer> arr) throws NotSortedException {
+    public List<Integer> BubbleSortV2(List<Integer> arr) throws NotSortedException {        
         List<Integer> newArr = arr; 
         boolean swapped = false;
         
@@ -177,29 +178,34 @@ public class Sorting {
     }
     
     /**
-     * Shell Sort with h = array length / 2
+     * Shell Sort with increment = array length / 2
      * @param arr ArrayList<> to be sorted
      * @return sorted ArrayList<>
      * @throws NotSortedException 
      */
     public List<Integer> ShellSort(List<Integer> arr) throws NotSortedException {
-        List<Integer> newArr = arr; 
-        int h = newArr.size() / 2;
         
-        while (h > 0) {
-            for (int i = h; i < newArr.size(); i++) {
-                int x = newArr.get(i);
-                int j = i;
+        List<Integer> newArr = arr; 
+        int increment = newArr.size() / 2;
                 
-                while ((j >= h) && (x < newArr.get(j-h))) {
-                    newArr.set(i, newArr.get(j-h));
-                    j -= h;
+        while (increment > 0) {
+            for (int i = increment; i < newArr.size(); i++) {
+                int j = i;
+                int temp = newArr.get(i);
+                
+                while ((j >= increment) && (temp < newArr.get(j-increment))) {
+                    newArr.set(j, newArr.get(j-increment));
+                    j -= increment;
                 }
                 
-                newArr.set(i, x);
+                newArr.set(j, temp);
             }
             
-            h /= 2;
+            if (increment == 2) {
+                increment = 1;
+            } else {
+                increment *= (5.0 / 11);
+            }
         }
         
         CheckSorting(newArr);
@@ -207,7 +213,7 @@ public class Sorting {
     }
     
     /**
-     * Shell Sort with h = 1
+     * Shell Sort with increment = 1
      * @param arr ArrayList<> to be sorted
      * @return sorted ArrayList<>
      * @throws NotSortedException 
@@ -215,27 +221,27 @@ public class Sorting {
     public List<Integer> ShellSortV2(List<Integer> arr) throws NotSortedException {
         List<Integer> newArr = arr; 
         
-        int h = 1;
+        int increment = 1;
         double tmp = newArr.size() / 9.0;
         
-        while (h < tmp) {
-            h = 3 * h + 1;
+        while (increment < tmp) {
+            increment = 3 * increment + 1;
         }
         
-        while (h > 0) {
-            for (int i = h; i < newArr.size(); i++) {
-                int x = newArr.get(i);
+        while (increment > 0) {
+            for (int i = increment; i < newArr.size(); i++) {
+                int temp = newArr.get(i);
                 int j = i;
                 
-                while ((j >= h) && (x < newArr.get(j-h))) {
-                    newArr.set(i, newArr.get(j-h));
-                    j -= h;
+                while ((j >= increment) && (temp < newArr.get(j-increment))) {
+                    newArr.set(j, newArr.get(j - increment));
+                    j -= increment;
                 }
                 
-                newArr.set(i, x);
+                newArr.set(j, temp);
             }
             
-            h /= 3;
+            increment /= 3;
         }
         
         CheckSorting(newArr);
@@ -253,27 +259,66 @@ public class Sorting {
     public List<Integer> QuickSort(List<Integer> arr, int l, int r) throws NotSortedException {
         List<Integer> newArr = arr; 
         
-        if (l < r) {
-            int t = newArr.get(l);  // pivot element
-            int s = l;  // dividing element
-            
-            for (int i = l + 1; i < r; i++) {
-                if (newArr.get(i).compareTo(t) > 0) {       
-                    s++; 
-                    
-                    int tmp = newArr.get(i); 
-                    newArr.set(i, newArr.get(s));
-                    newArr.set(s, tmp);
+        System.out.println(newArr);
+        
+//        if (l < r) {
+//            int t = newArr.get(l);  // pivot element
+//            int s = l;  // dividing element
+//            
+//            for (int i = l + 1; i < r; i++) {
+//                if (newArr.get(i).compareTo(t) > 0) {       
+//                    s++; 
+//                    
+//                    int tmp = newArr.get(i); 
+//                    newArr.set(i, newArr.get(s));
+//                    newArr.set(s, tmp);
+//                }
+//            }            
+////            System.out.println(newArr);
+////            newArr = QuickSort(newArr, l, s);
+////            newArr = QuickSort(newArr, s+1, r);
+//        }
+//        
+//        CheckSorting(newArr);
+        return newArr;
+    }
+    
+    /**
+     * Quick sort recurrent algorithm V2
+     * @param arr ArrayList<> to be sorted
+     * @param l left side of an array
+     * @param r right side of an array
+     * @return sorted ArrayList<>
+     * @throws NotSortedException 
+     */
+    public List<Integer> QuickSortV2(List<Integer> arr, int l, int r) throws NotSortedException {
+        List<Integer> newArr = arr; 
+        
+        int i = l;
+        int j = r;
+        int v = newArr.get((l + r) / 2); // pivot
+
+            do {
+                while (newArr.get(i) < v) i++;
+                
+                while (v<newArr.get(j)) j--;
+                
+                if (i<=j) {
+                    int temp = newArr.get(i);
+                    newArr.set(i, newArr.get(j));
+                    newArr.set(j, temp);
+                    i++;
+                    j--;
                 }
-            }            
-            QuickSort(newArr, l, s);
-            QuickSort(newArr, s+1, r);
-        }
+            }
+            
+            while (i<=j);
+            if (l < j)
+                QuickSortV2(newArr, l, j);
+            if (i < r)
+                QuickSortV2(newArr, i, r);
         
         CheckSorting(newArr);
         return newArr;
     }
-    
-    
-    
 }

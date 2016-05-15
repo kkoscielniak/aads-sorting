@@ -1,5 +1,6 @@
 package sorting;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +30,6 @@ public class Sorting {
      * @throws NotSortedException 
      */
     private void CheckSorting(List<Integer> arr) throws NotSortedException {
-        System.out.println(arr);
         for (int i = 1; i < arr.size(); i++) {
             if (arr.get(i) < (arr.get(i-1))) {
                 System.out.println(i);
@@ -37,6 +37,30 @@ public class Sorting {
                 throw new NotSortedException();
             }
         }
+    }
+    
+    /**
+    * Join the less array, pivot integer, and greater array to single array.
+    * @param less integer ArrayList with values less than pivot.
+    * @param pivot the pivot integer.
+    * @param greater integer ArrayList with values greater than pivot.
+    * @return the integer ArrayList after join.
+    */
+    private List<Integer> Concatenate(List<Integer> less, int pivot, List<Integer> greater){
+
+            List<Integer> list = new ArrayList<Integer>();
+
+            for (int i = 0; i < less.size(); i++) {
+                    list.add(less.get(i));
+            }
+
+            list.add(pivot);
+
+            for (int i = 0; i < greater.size(); i++) {
+                    list.add(greater.get(i));
+            }
+
+            return list;
     }
     
     /**
@@ -256,30 +280,32 @@ public class Sorting {
      * @return sorted ArrayList<>
      * @throws NotSortedException 
      */
-    public List<Integer> QuickSort(List<Integer> arr, int l, int r) throws NotSortedException {
-        List<Integer> newArr = arr; 
+    public List<Integer> QuickSort(List<Integer> arr) throws NotSortedException {
         
-        System.out.println(newArr);
+        if (arr.size() <= 1) {
+            return arr;
+        }
+
+        int middle = (int)Math.ceil((double)arr.size() / 2);
+        int pivot = arr.get(0);
+
+        List<Integer> less = new ArrayList<>();
+        List<Integer> greater = new ArrayList<>();
+
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i) <= pivot){
+                if (i == middle){
+                    continue;
+                }
+                less.add(arr.get(i));
+            } else {
+                greater.add(arr.get(i));
+            }
+        }
+
+        List<Integer> newArr = Concatenate(QuickSort(less), pivot, QuickSort(greater));
         
-//        if (l < r) {
-//            int t = newArr.get(l);  // pivot element
-//            int s = l;  // dividing element
-//            
-//            for (int i = l + 1; i < r; i++) {
-//                if (newArr.get(i).compareTo(t) > 0) {       
-//                    s++; 
-//                    
-//                    int tmp = newArr.get(i); 
-//                    newArr.set(i, newArr.get(s));
-//                    newArr.set(s, tmp);
-//                }
-//            }            
-////            System.out.println(newArr);
-////            newArr = QuickSort(newArr, l, s);
-////            newArr = QuickSort(newArr, s+1, r);
-//        }
-//        
-//        CheckSorting(newArr);
+        CheckSorting(newArr);
         return newArr;
     }
     
@@ -291,32 +317,130 @@ public class Sorting {
      * @return sorted ArrayList<>
      * @throws NotSortedException 
      */
-    public List<Integer> QuickSortV2(List<Integer> arr, int l, int r) throws NotSortedException {
-        List<Integer> newArr = arr; 
+    public List<Integer> QuickSortV2(List<Integer> arr) throws NotSortedException {
         
-        int i = l;
-        int j = r;
-        int v = newArr.get((l + r) / 2); // pivot
+        if (arr.size() <= 1) {
+            return arr;
+        }
 
-            do {
-                while (newArr.get(i) < v) i++;
-                
-                while (v<newArr.get(j)) j--;
-                
-                if (i<=j) {
-                    int temp = newArr.get(i);
-                    newArr.set(i, newArr.get(j));
-                    newArr.set(j, temp);
-                    i++;
-                    j--;
-                }
+        int middle = (int)Math.ceil((double)arr.size() / 2);
+        int pivot = arr.get(middle);
+
+        List<Integer> less = new ArrayList<>();
+        List<Integer> greater = new ArrayList<>();
+
+        for (int i = 0; i < arr.size(); i++) {
+            if(arr.get(i) <= pivot){
+                if(i == middle){
+                    continue;
+                } less.add(arr.get(i));
+            } else {
+                greater.add(arr.get(i));
             }
-            
-            while (i<=j);
-            if (l < j)
-                QuickSortV2(newArr, l, j);
-            if (i < r)
-                QuickSortV2(newArr, i, r);
+        }
+
+        List<Integer> newArr = Concatenate(QuickSort(less), pivot, QuickSort(greater));
+        
+        CheckSorting(newArr);
+        return newArr;
+    }
+    
+    /**
+     * Quick sort recurrent algorithm V3
+     * @param arr ArrayList<> to be sorted
+     * @param l left side of an array
+     * @param r right side of an array
+     * @return sorted ArrayList<>
+     * @throws NotSortedException 
+     */
+    public List<Integer> QuickSortV3(List<Integer> arr) throws NotSortedException {
+        
+        if (arr.size() <= 1) {
+            return arr;
+        }
+
+        int middle = (int)Math.max(
+            Math.min(
+                0, 
+                Math.ceil((double)arr.size()/2)
+            ), 
+            Math.min(
+                Math.max(
+                    0, 
+                    Math.ceil((double)arr.size()/2)), 
+                Math.ceil((double)arr.size()
+                )
+            )
+        );
+        
+        
+        int pivot = arr.get(middle);
+
+        List<Integer> less = new ArrayList<>();
+        List<Integer> greater = new ArrayList<>();
+
+        for (int i = 0; i < arr.size(); i++) {
+            if(arr.get(i) <= pivot){
+                if(i == middle){
+                    continue;
+                } less.add(arr.get(i));
+            } else {
+                greater.add(arr.get(i));
+            }
+        }
+
+        List<Integer> newArr = Concatenate(QuickSort(less), pivot, QuickSort(greater));
+        
+        CheckSorting(newArr);
+        return newArr;
+    }
+    
+    /**
+     * Quick sort expanded by Insertion sort
+     * @param arr ArrayList<> to be sorted
+     * @return sorted ArrayList<>
+     * @throws NotSortedException 
+     */
+    public List<Integer> Quicksertion(List<Integer> arr) throws NotSortedException {
+        
+        if (arr.size() <= 1) {
+            return arr;
+        }
+        
+        if (arr.size() <= 20) {
+            return InsertionSort(arr);
+        }
+
+        int middle = (int)Math.max(
+            Math.min(
+                0, 
+                Math.ceil((double)arr.size()/2)
+            ), 
+            Math.min(
+                Math.max(
+                    0, 
+                    Math.ceil((double)arr.size()/2)), 
+                Math.ceil((double)arr.size()
+                )
+            )
+        );
+        
+        int pivot = arr.get(middle);
+
+        List<Integer> less = new ArrayList<>();
+        List<Integer> greater = new ArrayList<>();
+
+        for (int i = 0; i < arr.size(); i++) {
+            if(arr.get(i) <= pivot){
+                if(i == middle){
+                    continue;
+                } less.add(arr.get(i));
+            } else {
+                greater.add(arr.get(i));
+            }
+        }
+
+        List<Integer> newArr = Concatenate(QuickSort(less), pivot, QuickSort(greater));
         
         CheckSorting(newArr);
         return newArr;

@@ -19,12 +19,11 @@ public class View {
         Sorting sorting = Sorting.getInstance();
         StopWatch watch = new StopWatch();
 
-        List<Integer> mutableArrayOfNumbers = utils.GenerateArrayOfRandoms(10000, 1, 1000000);
+        List<Integer> mutableArrayOfNumbers = utils.GenerateArrayOfRandoms(10, 1, 10);
 
         // Sorting of numbers
         try {
 
-            /* Bubble Sorting */
             watch.start();
             sorting.BubbleSort(new ArrayList<>(mutableArrayOfNumbers));
             watch.stop();
@@ -37,11 +36,11 @@ public class View {
             System.out.println("Improved bubble sort of the array took " + watch.getTime() + "ms");
             watch.reset();
 
-            watch.start();
-            sorting.BubbleSortV3(new ArrayList<>(mutableArrayOfNumbers));
-            watch.stop();
-            System.out.println("Improved bubble sort of the array took " + watch.getTime() + "ms");
-            watch.reset();
+//            watch.start();
+//            sorting.BubbleSortV3(new ArrayList<>(mutableArrayOfNumbers));
+//            watch.stop();
+//            System.out.println("Improved bubble sort of the array took " + watch.getTime() + "ms");
+//            watch.reset();
 
             watch.start();
             sorting.SelectionSort(new ArrayList<>(mutableArrayOfNumbers));

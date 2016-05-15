@@ -32,8 +32,9 @@ public class Sorting {
     private void CheckSorting(List<Integer> arr) throws NotSortedException {
         for (int i = 1; i < arr.size(); i++) {
             if (arr.get(i) < (arr.get(i-1))) {
-                System.out.println(i);
+                System.out.println("Index of element which is not in it's order: " + (i+1));
                 System.out.println(arr.get(i) + " > " + arr.get(i-1));
+                System.out.print(arr);
                 throw new NotSortedException();
             }
         }
@@ -48,19 +49,19 @@ public class Sorting {
     */
     private List<Integer> Concatenate(List<Integer> less, int pivot, List<Integer> greater){
 
-            List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
 
-            for (int i = 0; i < less.size(); i++) {
-                    list.add(less.get(i));
-            }
+        for (Integer les : less) {
+            list.add(les);
+        }
 
-            list.add(pivot);
+        list.add(pivot);
 
-            for (int i = 0; i < greater.size(); i++) {
-                    list.add(greater.get(i));
-            }
+        for (Integer greater1 : greater) {
+            list.add(greater1);
+        }
 
-            return list;
+        return list;
     }
     
     /**
@@ -78,7 +79,6 @@ public class Sorting {
                     int tmp = newArr.get(i); 
                     newArr.set(i, newArr.get(j));
                     newArr.set(j, tmp);
-                    
                 }
             }
         }
@@ -117,33 +117,28 @@ public class Sorting {
     }
     
     /**
-     * Bubble sort improved by swap flag and with steps reduction
+     * Bubble sort improved by swap flag with steps reduction
      * @param arr ArrayList<> to be sorted
      * @return sorted ArrayList<>
      * @throws NotSortedException 
      */
     public List<Integer> BubbleSortV3(List<Integer> arr) throws NotSortedException {
-        List<Integer> newArr = arr; 
-        int n = newArr.size();
-        int swap = 0;
         
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n - i; j++) {
-                if (newArr.get(i).compareTo(newArr.get(j)) < 0) {
-                    int tmp = newArr.get(i); 
-                    newArr.set(i, newArr.get(j));
-                    newArr.set(j, tmp);
-                    swap++;
+        for (int i = 0; i < arr.size(); i++) {
+            
+            for (int j = 0; j < arr.size() - i; j++) {
+                if (arr.get(i).compareTo(arr.get(j)) < 0) {
+                    System.out.println("Swap");
+                    System.out.println(arr);
+                    int tmp = arr.get(i); 
+                    arr.set(i, arr.get(j));
+                    arr.set(j, tmp);
                 }
             }
-            if (swap == 0) {
-                break;
-            }
-            n--;
         }
         
-        CheckSorting(newArr);
-        return newArr;
+        CheckSorting(arr);
+        return arr;
     }
     
     /**

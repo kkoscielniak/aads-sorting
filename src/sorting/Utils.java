@@ -26,4 +26,18 @@ public class Utils {
         
         return arr;
     }
+    
+    public List<String> GenerateArrayOfStrings() {
+        
+        List<String> arr =  new ArrayList<>();
+        arr.add("Jozek");
+        arr.add("Bartek");
+        arr.add("Michal");
+        arr.add("Seba");
+        arr.add("krykstos");
+        arr.add("Helena");
+               
+        
+        return arr;
+    }
 }

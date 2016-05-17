@@ -1,6 +1,10 @@
 package sorting;
 
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,19 +28,21 @@ public class Utils {
             arr.add(randomGenerator.nextInt((max - min) + 1) + min);
         }
         
+        System.out.println("Array of numbers generated");
         return arr;
     }
     
-    public List<String> GenerateArrayOfStrings() {
+    public List<String> GenerateArrayOfStrings() throws FileNotFoundException, IOException {
         
-        List<String> arr =  new ArrayList<>();
-        arr.add("Jozek");
-        arr.add("Bartek");
-        arr.add("Michal");
-        arr.add("Seba");
-        arr.add("krykstos");
-        arr.add("Helena");
-               
+        List<String> arr =  new ArrayList<>();        
+        BufferedReader in = new BufferedReader(new FileReader("dictionary.txt"));
+        String str;
+        
+        while((str = in.readLine()) != null) {
+            arr.add(str);
+        }
+        
+        System.out.println("Array of strings loaded.");
         
         return arr;
     }

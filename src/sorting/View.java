@@ -20,9 +20,9 @@ public class View {
         Sorting sorting = Sorting.getInstance();
         StopWatch watch = new StopWatch();
 
-        
         try {
-            List<Integer> mutableArrayOfNumbers = utils.GenerateArrayOfRandoms(10000, 1, 1000000);
+            
+            List<Integer> mutableArrayOfNumbers = utils.GenerateArrayOfRandoms(5000, 1, 10000);
             List<String> mutableArrayOfStrings = utils.GenerateArrayOfStrings();
 
             /* Sorting of numbers */
@@ -35,68 +35,116 @@ public class View {
             watch.start();
             sorting.BubbleSortV2(new ArrayList<>(mutableArrayOfNumbers));
             watch.stop();
-            System.out.println("Improved bubble sort of the array took " + watch.getTime() + "ms");
+            System.out.println("Improved bubble sort of numbers took " + watch.getTime() + "ms");
             watch.reset();
-
-//            watch.start();
-//            sorting.BubbleSortV3(new ArrayList<>(mutableArrayOfNumbers));
-//            watch.stop();
-//            System.out.println("Improved bubble sort of the array took " + watch.getTime() + "ms");
-//            watch.reset();
 
             watch.start();
             sorting.SelectionSort(new ArrayList<>(mutableArrayOfNumbers));
             watch.stop();
-            System.out.println("Selection sort of the array took " + watch.getTime() + "ms");
+            System.out.println("Selection sort of numbers took " + watch.getTime() + "ms");
             watch.reset();
 
             watch.start();
             sorting.InsertionSort(new ArrayList<>(mutableArrayOfNumbers));
             watch.stop();
-            System.out.println("Insertion sort of the array took " + watch.getTime() + "ms");
+            System.out.println("Insertion sort of numbers took " + watch.getTime() + "ms");
             watch.reset();
 
             watch.start();
             sorting.ShellSort(new ArrayList<>(mutableArrayOfNumbers));
             watch.stop();
-            System.out.println("Shell sort with h=arr.size()/2 of the array took " + watch.getTime() + "ms");
+            System.out.println("Shell sort with h=arr.size()/2 of numbers took " + watch.getTime() + "ms");
             watch.reset();
 
             watch.start();
             sorting.ShellSortV2(new ArrayList<>(mutableArrayOfNumbers));
             watch.stop();
-            System.out.println("Shell sort with h=1 of the array took " + watch.getTime() + "ms");
+            System.out.println("Shell sort with h=1 of numbers took " + watch.getTime() + "ms");
             watch.reset();
 
             watch.start();
             sorting.QuickSort(new ArrayList<>(mutableArrayOfNumbers));
             watch.stop();
-            System.out.println("Quick sort of the array took " + watch.getTime() + "ms");
+            System.out.println("Quick sort of numbers took " + watch.getTime() + "ms");
             watch.reset();
 
             watch.start();
             sorting.QuickSortV2(new ArrayList<>(mutableArrayOfNumbers));
             watch.stop();
-            System.out.println("Quick sort V2 of the array took " + watch.getTime() + "ms");
+            System.out.println("Quick sort V2 of numbers took " + watch.getTime() + "ms");
             watch.reset();
 
             watch.start();
             sorting.QuickSortV3(new ArrayList<>(mutableArrayOfNumbers));
             watch.stop();
-            System.out.println("Quick sort V3 of the array took " + watch.getTime() + "ms");
+            System.out.println("Quick sort V3 of numbers took " + watch.getTime() + "ms");
             watch.reset();
 
             watch.start();
             sorting.Quicksertion(new ArrayList<>(mutableArrayOfNumbers));
             watch.stop();
-            System.out.println("Quicksertion of the array took " + watch.getTime() + "ms");
+            System.out.println("Quicksertion of numbers took " + watch.getTime() + "ms");
             watch.reset();
-            
+
             /* Sorting of strings */
             watch.start();
             sorting.BubbleSort(new ArrayList<>(mutableArrayOfStrings));
             watch.stop();
             System.out.println("Bubble sort of strings took " + watch.getTime() + "ms");
+            watch.reset();
+
+            watch.start();
+            sorting.BubbleSortV2(new ArrayList<>(mutableArrayOfStrings));
+            watch.stop();
+            System.out.println("Improved bubble sort of strings took " + watch.getTime() + "ms");
+            watch.reset();
+
+            watch.start();
+            sorting.SelectionSort(new ArrayList<>(mutableArrayOfStrings));
+            watch.stop();
+            System.out.println("Selection sort of strings took " + watch.getTime() + "ms");
+            watch.reset();
+
+            watch.start();
+            sorting.InsertionSort(new ArrayList<>(mutableArrayOfStrings));
+            watch.stop();
+            System.out.println("Insertion sort of strings took " + watch.getTime() + "ms");
+            watch.reset();
+
+            watch.start();
+            sorting.ShellSort(new ArrayList<>(mutableArrayOfStrings));
+            watch.stop();
+            System.out.println("Shell sort with h=arr.size()/2 of strings took " + watch.getTime() + "ms");
+            watch.reset();
+
+            watch.start();
+            sorting.ShellSortV2(new ArrayList<>(mutableArrayOfStrings));
+            watch.stop();
+            System.out.println("Shell sort with h=1 of strings took " + watch.getTime() + "ms");
+            watch.reset();
+
+            watch.start();
+            sorting.QuickSort(new ArrayList<>(mutableArrayOfStrings));
+            watch.stop();
+            System.out.println("Quick sort of strings took " + watch.getTime() + "ms");
+            watch.reset();
+
+            watch.start();
+            sorting.QuickSortV2(new ArrayList<>(mutableArrayOfStrings));
+            watch.stop();
+            System.out.println("Quick sort V2 of strings took " + watch.getTime() + "ms");
+            watch.reset();
+
+            watch.start();
+            sorting.QuickSortV3(new ArrayList<>(mutableArrayOfStrings));
+            watch.stop();
+            System.out.println("Quick sort V3 of strings took " + watch.getTime() + "ms");
+            watch.reset();
+
+            watch.start();
+            sorting.Quicksertion(new ArrayList<>(mutableArrayOfStrings));
+            watch.stop();
+            System.out.println("Quicksertion of strings took " + watch.getTime() + "ms");
             watch.reset();
 
         } catch (NotSortedException | DifferentTypesException | IOException e) {

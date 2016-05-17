@@ -35,7 +35,7 @@ public class Sorting<T> {
         for (int i = 1; i < arr.size(); i++) {
             if (Compare(arr.get(i), (arr.get(i-1))) < 0)   {
                 System.out.println("Index of element which is not in it's order: " + (i+1));
-                System.out.println(arr.get(i) + " > " + arr.get(i-1));
+                System.out.println(arr.get(i) + " >/= " + arr.get(i-1));
                 System.out.print(arr);
                 throw new NotSortedException();
             }

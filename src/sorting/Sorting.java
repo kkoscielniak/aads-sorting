@@ -80,6 +80,31 @@ public class Sorting<T> {
         return list;
     }
 
+    public T medianOf3(List<T> array, int left, int right) throws DifferentTypesException {
+        int center = (left + right) / 2;
+
+        if (Compare(array.get(left),array.get(center)) > 0)
+            array = swap(array, left, center);
+
+        if (Compare(array.get(left),array.get(right)) > 0)
+            array = swap(array, left, right);
+
+        if (Compare(array.get(center),array.get(right)) > 0)
+            array = swap(array, center, right);
+
+        array = swap(array, center, right - 1);
+        return array.get(right -1);
+
+    }
+
+    private List<T> swap(List<T> array, int dex1, int dex2) {
+        T temp = array.get(dex1);
+        array.set(dex1, array.get(dex2));
+        array.set(dex2, temp);
+        
+        return array;
+    }
+
     /**
      * Bubble sort without improvements
      * @param arr - ArrayList<> to sort
@@ -167,7 +192,7 @@ public class Sorting<T> {
      * @throws sorting.DifferentTypesException
      */
     public List<T> SelectionSort(List<T> arr) throws NotSortedException, DifferentTypesException {
-        List<T> newArr = arr; 
+        List<T> newArr = arr;
 
         int k; // index of minimal element
         T x; // value of minimal element
@@ -198,8 +223,8 @@ public class Sorting<T> {
      * @throws sorting.DifferentTypesException
      */
     public List<T> InsertionSort(List<T> arr) throws NotSortedException, DifferentTypesException {
-        List<T> newArr = arr; 
-        T x; 
+        List<T> newArr = arr;
+        T x;
         int j;
 
         for (int i = 1; i < newArr.size(); i++) {
@@ -226,7 +251,7 @@ public class Sorting<T> {
      */
     public List<T> ShellSort(List<T> arr) throws NotSortedException, DifferentTypesException {
 
-        List<T> newArr = arr; 
+        List<T> newArr = arr;
         int increment = newArr.size() / 2;
 
         while (increment > 0) {
@@ -261,7 +286,7 @@ public class Sorting<T> {
      * @throws sorting.DifferentTypesException
      */
     public List<T> ShellSortV2(List<T> arr) throws NotSortedException, DifferentTypesException {
-        List<T> newArr = arr; 
+        List<T> newArr = arr;
 
         int increment = 1;
         double tmp = newArr.size() / 9.0;
@@ -297,168 +322,189 @@ public class Sorting<T> {
      * @throws NotSortedException
      * @throws sorting.DifferentTypesException
      */
-    public List<T> QuickSort(List<T> arr) throws NotSortedException, DifferentTypesException {
+    public List<T> QuickSort(List<T> arr, int type) throws NotSortedException, DifferentTypesException {
+
+        System.out.println();
 
         if (arr.size() <= 1) {
             return arr;
         }
 
-        int middle = (int)Math.ceil((double)arr.size() / 2);
+        if (type == 0) System.out.println("Less");
+        if (type == 1) System.out.println("Greater");
+        System.out.println(arr + " | " + arr.size());
+
         T pivot = arr.get(0);
 
         List<T> less = new ArrayList<>();
         List<T> greater = new ArrayList<>();
 
-        for (int i = 0; i < arr.size(); i++) {
+        for (int i = 1; i < arr.size(); i++) {
             if (Compare(arr.get(i), pivot) <= 0) {
-                if (i == middle){
-                    continue;
-                }
+
+                less.add(arr.get(i));
+
+            } else if (Compare(arr.get(i), pivot) > 0) {
+                greater.add(arr.get(i));
+            }
+        }
+
+//        System.out.println("Middle index: " + middle);
+//        System.out.println("Pivot: " + pivot);
+
+
+
+        System.out.println("Less array size:" + less.size());
+        System.out.println("Greater array size:" + greater.size());
+
+
+
+
+
+        List<T> newArr = Concatenate(QuickSort(less, 0), pivot, QuickSort(greater, 1));
+
+        CheckSorting(newArr);
+        return newArr;
+    }
+
+    /**
+     * Quick sort recurrent algorithm V2 | Improved by median of 3
+     * @param arr ArrayList<> to be sorted
+     * @return sorted ArrayList<>
+     * @throws NotSortedException
+     * @throws sorting.DifferentTypesException
+     */
+    public List<T> QuickSortV2(List<T> arr, int type) throws NotSortedException, DifferentTypesException {
+
+        if (arr.size() <= 1) {
+            return arr;
+        }
+
+        System.out.println();
+        if (type == 0) System.out.println("Less");
+        if (type == 1) System.out.println("Greater");
+        System.out.println(arr + " | " + arr.size());
+
+        int middle = (int)Math.floor((double)arr.size() / 2);
+        T pivot = medianOf3(arr, 0, arr.size()-1);
+
+        System.out.println("Pivot/median of three: " + pivot);
+
+        List<T> less = new ArrayList<>();
+        List<T> greater = new ArrayList<>();
+
+        for (int i = 1; i < arr.size(); i++) {
+            if (Compare(arr.get(i), pivot) <= 0) {
                 less.add(arr.get(i));
             } else {
                 greater.add(arr.get(i));
             }
         }
 
-        List<T> newArr = Concatenate(QuickSort(less), pivot, QuickSort(greater));
+        List<T> newArr = Concatenate(QuickSortV2(less, 0), pivot, QuickSortV2(greater, 1));
 
         CheckSorting(newArr);
         return newArr;
     }
-
-    /**
-     * Quick sort recurrent algorithm V2
-     * @param arr ArrayList<> to be sorted
-     * @return sorted ArrayList<>
-     * @throws NotSortedException
-     * @throws sorting.DifferentTypesException
-     */
-    public List<T> QuickSortV2(List<T> arr) throws NotSortedException, DifferentTypesException {
-
-        if (arr.size() <= 1) {
-            return arr;
-        }
-
-        int middle = (int)Math.ceil((double)arr.size() / 2);
-        T pivot = arr.get(middle);
-
-        List<T> less = new ArrayList<>();
-        List<T> greater = new ArrayList<>();
-
-        for (int i = 0; i < arr.size(); i++) {
-            if (Compare(arr.get(i), pivot) <= 0){
-                if(i == middle){
-                    continue;
-                } less.add(arr.get(i));
-            } else {
-                greater.add(arr.get(i));
-            }
-        }
-
-        List<T> newArr = Concatenate(QuickSort(less), pivot, QuickSort(greater));
-
-        CheckSorting(newArr);
-        return newArr;
-    }
-
-    /**
-     * Quick sort recurrent algorithm V3
-     * @param arr ArrayList<> to be sorted
-     * @return sorted ArrayList<>
-     * @throws NotSortedException
-     * @throws sorting.DifferentTypesException
-     */
-    public List<T> QuickSortV3(List<T> arr) throws NotSortedException, DifferentTypesException {
-
-        if (arr.size() <= 1) {
-            return arr;
-        }
-
-        int middle = (int)Math.max(
-            Math.min(
-                0,
-                Math.ceil((double)arr.size()/2)
-            ),
-            Math.min(
-                Math.max(
-                    0,
-                    Math.ceil((double)arr.size()/2)),
-                Math.ceil((double)arr.size()
-                )
-            )
-        );
-
-
-        T pivot = arr.get(middle);
-
-        List<T> less = new ArrayList<>();
-        List<T> greater = new ArrayList<>();
-
-        for (int i = 0; i < arr.size(); i++) {
-            if (Compare(arr.get(i), pivot) <= 0){
-                if (i == middle){
-                    continue;
-                } less.add(arr.get(i));
-            } else {
-                greater.add(arr.get(i));
-            }
-        }
-
-        List<T> newArr = Concatenate(QuickSort(less), pivot, QuickSort(greater));
-
-        CheckSorting(newArr);
-        return newArr;
-    }
-
-    /**
-     * Quick sort expanded by Insertion sort
-     * @param arr ArrayList<> to be sorted
-     * @return sorted ArrayList<>
-     * @throws NotSortedException
-     * @throws sorting.DifferentTypesException
-     */
-    public List<T> Quicksertion(List<T> arr) throws NotSortedException, DifferentTypesException {
-
-        if (arr.size() <= 1) {
-            return arr;
-        }
-
-        if (arr.size() <= 20) {
-            return InsertionSort(arr);
-        }
-
-        int middle = (int)Math.max(
-            Math.min(
-                0,
-                Math.ceil((double)arr.size()/2)
-            ),
-            Math.min(
-                Math.max(
-                    0,
-                    Math.ceil((double)arr.size()/2)),
-                Math.ceil((double)arr.size()
-                )
-            )
-        );
-
-        T pivot = arr.get(middle);
-
-        List<T> less = new ArrayList<>();
-        List<T> greater = new ArrayList<>();
-
-        for (int i = 0; i < arr.size(); i++) {
-            if (Compare(arr.get(i), pivot) <= 0) {
-                if(i == middle){
-                    continue;
-                } less.add(arr.get(i));
-            } else {
-                greater.add(arr.get(i));
-            }
-        }
-
-        List<T> newArr = Concatenate(QuickSort(less), pivot, QuickSort(greater));
-
-        CheckSorting(newArr);
-        return newArr;
-    }
+//
+//    /**
+//     * Quick sort recurrent algorithm V3
+//     * @param arr ArrayList<> to be sorted
+//     * @return sorted ArrayList<>
+//     * @throws NotSortedException
+//     * @throws sorting.DifferentTypesException
+//     */
+//    public List<T> QuickSortV3(List<T> arr) throws NotSortedException, DifferentTypesException {
+//
+//        if (arr.size() <= 1) {
+//            return arr;
+//        }
+//
+//        int middle = (int)Math.max(
+//            Math.min(
+//                0,
+//                Math.ceil((double)arr.size()/2)
+//            ),
+//            Math.min(
+//                Math.max(
+//                    0,
+//                    Math.ceil((double)arr.size()/2)),
+//                Math.ceil((double)arr.size()
+//                )
+//            )
+//        );
+//
+//
+//        T pivot = arr.get(middle);
+//
+//        List<T> less = new ArrayList<>();
+//        List<T> greater = new ArrayList<>();
+//
+//        for (int i = 0; i < arr.size(); i++) {
+//            if (Compare(arr.get(i), pivot) <= 0){
+//                if (i == middle){
+//                    continue;
+//                } less.add(arr.get(i));
+//            } else {
+//                greater.add(arr.get(i));
+//            }
+//        }
+//
+////        List<T> newArr = Concatenate(QuickSort(less), pivot, QuickSort(greater));
+//
+////        CheckSorting(newArr);
+////        return newArr;
+//    }
+//
+//    /**
+//     * Quick sort expanded by Insertion sort
+//     * @param arr ArrayList<> to be sorted
+//     * @return sorted ArrayList<>
+//     * @throws NotSortedException
+//     * @throws sorting.DifferentTypesException
+//     */
+//    public List<T> Quicksertion(List<T> arr) throws NotSortedException, DifferentTypesException {
+//
+//        if (arr.size() <= 1) {
+//            return arr;
+//        }
+//
+//        if (arr.size() <= 20) {
+//            return InsertionSort(arr);
+//        }
+//
+//        int middle = (int)Math.max(
+//            Math.min(
+//                0,
+//                Math.ceil((double)arr.size()/2)
+//            ),
+//            Math.min(
+//                Math.max(
+//                    0,
+//                    Math.ceil((double)arr.size()/2)),
+//                Math.ceil((double)arr.size()
+//                )
+//            )
+//        );
+//
+//        T pivot = arr.get(middle);
+//
+//        List<T> less = new ArrayList<>();
+//        List<T> greater = new ArrayList<>();
+//
+//        for (int i = 0; i < arr.size(); i++) {
+//            if (Compare(arr.get(i), pivot) <= 0) {
+//                if(i == middle){
+//                    continue;
+//                } less.add(arr.get(i));
+//            } else {
+//                greater.add(arr.get(i));
+//            }
+//        }
+//
+////        List<T> newArr = Concatenate(QuickSort(less), pivot, QuickSort(greater));
+//
+////        CheckSorting(newArr);
+////        return newArr;
+//    }
 }

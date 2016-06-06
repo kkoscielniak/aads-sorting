@@ -35,7 +35,7 @@ public class Utils {
     public List<String> GenerateArrayOfStrings() throws FileNotFoundException, IOException {
         
         List<String> arr =  new ArrayList<>();        
-        BufferedReader in = new BufferedReader(new FileReader("dict_big.txt"));
+        BufferedReader in = new BufferedReader(new FileReader("dict_medium.txt"));
         String str;
         
         while((str = in.readLine()) != null) {

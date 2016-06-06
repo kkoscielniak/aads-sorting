@@ -81,27 +81,38 @@ public class Sorting<T> {
         return list;
     }
 
+    /**
+     * Calculates median of 3 of the array
+     * @param array
+     * @param left top-left element
+     * @param right top-right element
+     * @return medianOf3
+     * @throws DifferentTypesException
+     */
     public int medianOf3(List<T> array, int left, int right) throws DifferentTypesException {
-        int center = (int)Math.floor((left + right) / 2);
+        int center = (int)Math.floor((left + right) / 2); 
         
-        System.out.println(center);
-        System.out.println("left: " + array.get(left));
-        System.out.println("right: " + array.get(right));
-        System.out.println("center: " + array.get(center));    
-        
-//        if (Compare(array.get(left),array.get(center)) > 0)
-//            array = swap(array, left, center);
-//
-//        if (Compare(array.get(left),array.get(right)) > 0)
-//            array = swap(array, left, right);
-//
-//        if (Compare(array.get(center),array.get(right)) > 0)
-//            array = swap(array, center, right);
-//
-//        array = swap(array, center, right - 1);
+        if (Compare(array.get(left),array.get(center)) > 0)
+            array = swap(array, left, center);
+
+        if (Compare(array.get(left),array.get(right)) > 0)
+            array = swap(array, left, right);
+
+        if (Compare(array.get(center),array.get(right)) > 0)
+            array = swap(array, center, right);
+
+        array = swap(array, center, right - 1);
         return array.indexOf(array.get(right - 1));
     }
 
+    
+    /**
+     * Swaps elements in array
+     * @param array array in which we swap elements
+     * @param dex1 index of first element
+     * @param dex2 index of second element
+     * @return array in which elements are swapped
+     */
     private List<T> swap(List<T> array, int dex1, int dex2) {
         T temp = array.get(dex1);
         array.set(dex1, array.get(dex2));
@@ -109,11 +120,6 @@ public class Sorting<T> {
         
         return array;
     }
-    
-//    private T closestElement () {
-//        T elem =
-//        return ;
-//    }
 
     /**
      * Bubble sort without improvements

@@ -83,14 +83,22 @@ public class Sorting<T> {
 
     /**
      * Calculates median of 3 of the array
-     * @param array
+     * @param array array in which we find the median of 3
      * @param left top-left element
      * @param right top-right element
      * @return medianOf3
      * @throws DifferentTypesException
      */
     public int medianOf3(List<T> array, int left, int right) throws DifferentTypesException {
-        int center = (int)Math.floor((left + right) / 2); 
+        
+        int center = (int)Math.floor((left + right) / 2);
+        
+        if (DEBUG) {
+            System.out.println("Top left element: " + array.get(left));
+            System.out.println("Center element: " + array.get(center));
+            System.out.println("Top right element: " + array.get(right));
+
+        }
         
         if (Compare(array.get(left),array.get(center)) > 0)
             array = swap(array, left, center);
@@ -373,9 +381,6 @@ public class Sorting<T> {
             System.out.println("Greater array size:" + greater.size());
         }
 
-
-
-
         List<T> newArr = Concatenate(QuickSort(less, 0), pivot, QuickSort(greater, 1));
 
         CheckSorting(newArr);
@@ -402,36 +407,19 @@ public class Sorting<T> {
             System.out.println(arr + " | " + arr.size());
         }
 
-//        int middle = (int)Math.floor((double)arr.size() / 2);
-
         int pivot = medianOf3(arr, 0, arr.size() - 1);
         
-        System.out.println(arr);
-
-        
-        System.out.println(arr.get(pivot));
+        if (DEBUG) {
+            System.out.println(arr);        
+            System.out.println(arr.get(pivot));
+            System.out.println("Index of pivot element: " + arr.indexOf(pivot));
+        }
         
         arr = swap(arr, pivot, 0);
         
-        System.out.println(arr);
-        
-        
-        
-        
-        
-                
-        /* TODO : 
-        Swap z elementem pivota tak aby był na początku tablicy
-        */
-
-//        System.out.println("Pivot/median of three: " + pivot);
-        
-        // TODO najbliższy pivotovi element to ?
-        
-        
-        
-        
-        System.out.println(arr.indexOf(pivot));
+        if (DEBUG) {
+            System.out.println(arr);    
+        }
 
         List<T> less = new ArrayList<>();
         List<T> greater = new ArrayList<>();
@@ -442,6 +430,11 @@ public class Sorting<T> {
             } else {
                 greater.add(arr.get(i));
             }
+        }
+        
+        if (DEBUG) {
+            System.out.println("Less array size:" + less.size());
+            System.out.println("Greater array size:" + greater.size());
         }
 
         List<T> newArr = Concatenate(QuickSortV2(less, 0), arr.get(pivot), QuickSortV2(greater, 1));
@@ -457,52 +450,52 @@ public class Sorting<T> {
      * @throws NotSortedException
      * @throws sorting.DifferentTypesException
      */
-    public List<T> QuickSortV3(List<T> arr, int type) throws NotSortedException, DifferentTypesException {
-
-        if (arr.size() <= 1) {
-            return arr;
-        }
-        
-        if (DEBUG) {
-            System.out.println();
-            if (type == 0) System.out.println("Less");
-            if (type == 1) System.out.println("Greater");
-            System.out.println(arr + " | " + arr.size());
-        }
-
-        int middle = (int)Math.max(
-            Math.min(
-                0,
-                Math.floor((double)arr.size()/2)
-            ),
-            Math.min(
-                Math.max(
-                    0,
-                    Math.floor((double)arr.size()/2)),
-                Math.floor((double)arr.size()
-                )
-            )
-        );
-
-        T pivot = arr.get(middle);
-
-        List<T> less = new ArrayList<>();
-        List<T> greater = new ArrayList<>();
-
-        for (int i = 0; i < arr.size(); i++) {
-            if (Compare(arr.get(i), pivot) <= 1){
-                less.add(arr.get(i));
-            } else {
-                greater.add(arr.get(i));
-            }
-        }
-
-        List<T> newArr = Concatenate(QuickSortV3(less, 0), pivot, QuickSortV3(greater, 1));
-
-        CheckSorting(newArr);
-        return newArr;
-    }
+//    public List<T> QuickSortV3(List<T> arr, int type) throws NotSortedException, DifferentTypesException {
 //
+//        if (arr.size() <= 1) {
+//            return arr;
+//        }
+//        
+//        if (DEBUG) {
+//            System.out.println();
+//            if (type == 0) System.out.println("Less");
+//            if (type == 1) System.out.println("Greater");
+//            System.out.println(arr + " | " + arr.size());
+//        }
+//
+//        int middle = (int)Math.max(
+//            Math.min(
+//                0,
+//                Math.floor((double)arr.size()/2)
+//            ),
+//            Math.min(
+//                Math.max(
+//                    0,
+//                    Math.floor((double)arr.size()/2)),
+//                Math.floor((double)arr.size()
+//                )
+//            )
+//        );
+//
+//        T pivot = arr.get(middle);
+//
+//        List<T> less = new ArrayList<>();
+//        List<T> greater = new ArrayList<>();
+//
+//        for (int i = 0; i < arr.size(); i++) {
+//            if (Compare(arr.get(i), pivot) <= 1){
+//                less.add(arr.get(i));
+//            } else {
+//                greater.add(arr.get(i));
+//            }
+//        }
+//
+//        List<T> newArr = Concatenate(QuickSortV3(less, 0), pivot, QuickSortV3(greater, 1));
+//
+//        CheckSorting(newArr);
+//        return newArr;
+//    }
+    
 //    /**
 //     * Quick sort expanded by Insertion sort
 //     * @param arr ArrayList<> to be sorted

@@ -21,7 +21,7 @@ public class View {
         StopWatch watch = new StopWatch();
 
         try {
-            List<Integer> mutableArrayOfNumbers = utils.GenerateArrayOfRandoms(150, 1, 10000);
+            List<Integer> mutableArrayOfNumbers = utils.GenerateArrayOfRandoms(10, 1, 100);
             List<String> mutableArrayOfStrings = utils.GenerateArrayOfStrings();
 
             /* Sorting of numbers */
@@ -60,34 +60,42 @@ public class View {
 //            watch.stop();
 //            System.out.println("Shell sort with h=1 of numbers took " + watch.getTime() + "ms");
 //            watch.reset();
-//
+////
 //            watch.start();
 //            ArrayList<Integer> arr = (ArrayList<Integer>) sorting.QuickSort(new ArrayList<>(mutableArrayOfNumbers), 0);
-//            System.out.println("Array size after Quicksort: " + arr.size());
+//            if (Sorting.DEBUG) {
+//                System.out.println("Array size after Quicksort: " + arr.size());
+//            }
 //            watch.stop();
 //            System.out.println("Quick sort of numbers took " + watch.getTime() + "ms");
 //            watch.reset();
 
             watch.start();
-            ArrayList<Integer> arr = (ArrayList<Integer>) sorting.QuickSortV2(new ArrayList<>(mutableArrayOfNumbers), 0);
-            System.out.println("Array size after Quicksort V2: " + arr.size());
+            ArrayList<Integer>arr = (ArrayList<Integer>) sorting.QuickSortV2(new ArrayList<>(mutableArrayOfNumbers), 0);
+            if (Sorting.DEBUG) {
+                System.out.println("Array size after Quicksort V2: " + arr.size());    
+            }
             watch.stop();
             System.out.println("Quick sort V2 of numbers took " + watch.getTime() + "ms");
             watch.reset();
-//
+
 //            watch.start();
-//            sorting.QuickSortV3(new ArrayList<>(mutableArrayOfNumbers));
+//            arr = (ArrayList<Integer>) sorting.QuickSortV2(new ArrayList<>(mutableArrayOfNumbers), 0);
+//            if (Sorting.DEBUG) {
+//                System.out.println("Array size after Quicksort V3: " + arr.size());    
+//            }
+//            sorting.QuickSortV3(new ArrayList<>(mutableArrayOfNumbers), 0);
 //            watch.stop();
 //            System.out.println("Quick sort V3 of numbers took " + watch.getTime() + "ms");
 //            watch.reset();
-//
+
 //            watch.start();
 //            sorting.Quicksertion(new ArrayList<>(mutableArrayOfNumbers));
 //            watch.stop();
 //            System.out.println("Quicksertion of numbers took " + watch.getTime() + "ms");
 //            watch.reset();
 //
-//            /* Sorting of strings */
+            /* Sorting of strings */
 //            watch.start();
 //            sorting.BubbleSort(new ArrayList<>(mutableArrayOfStrings));
 //            watch.stop();
@@ -129,9 +137,9 @@ public class View {
 //            watch.stop();
 //            System.out.println("Quick sort of strings took " + watch.getTime() + "ms");
 //            watch.reset();
-//
+
 //            watch.start();
-//            sorting.QuickSortV2(new ArrayList<>(mutableArrayOfStrings));
+//            sorting.QuickSortV2(new ArrayList<>(mutableArrayOfStrings), 0);
 //            watch.stop();
 //            System.out.println("Quick sort V2 of strings took " + watch.getTime() + "ms");
 //            watch.reset();

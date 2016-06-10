@@ -32,14 +32,17 @@ public class Utils {
         return arr;
     }
     
-    public List<String> GenerateArrayOfStrings() throws FileNotFoundException, IOException {
+    public List<String> GenerateArrayOfStrings(int elemCount) throws FileNotFoundException, IOException {
         
         List<String> arr =  new ArrayList<>();        
         BufferedReader in = new BufferedReader(new FileReader("dict_medium.txt"));
         String str;
+        int i = 0;
         
-        while((str = in.readLine()) != null) {
+        while((str = in.readLine()) != null && i < elemCount) {
             arr.add(str);
+            
+            i++;
         }
         
         System.out.println("Array of strings loaded.");
